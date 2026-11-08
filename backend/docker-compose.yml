@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: workstation-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-workstation}
+      POSTGRES_USER: ${DATABASE_USER:-workstation}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - workstation_pgdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5435:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U workstation -d workstation"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build: .
+    container_name: workstation-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env.production
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: workstation
+      DATABASE_USER: workstation
+    ports:
+      - "8010:8000"
+    volumes:
+      - workstation_uploads:/app/uploads
+
+volumes:
+  workstation_pgdata:
+  workstation_uploads:

@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.Python
+*.egg-info/
+.dist/
+dist/
+build/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.idea/
+.vscode/
+*.log
+
+# uploads
+uploads/*
+!uploads/.gitkeep
+
+.env.production
+.env.compose
