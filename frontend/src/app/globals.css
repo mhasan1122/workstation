@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* Employee Portal · Workstation — Navy & Gold design system (light only) */
+:root {
+  --navy: #0b2545;
+  --navy-sidebar: #13315c;
+  --navy-deep: #081a31;
+  --gold: #c9a227;
+  --gold-soft: #f8f1d4;
+  --surface: #f6f8fb;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --ink-muted: #5b6b82;
+  --line: #e8eef5;
+  color-scheme: light;
+}
+
+@theme inline {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --color-navy: #0b2545;
+  --color-navy-sidebar: #13315c;
+  --color-navy-deep: #081a31;
+  --color-gold: #c9a227;
+  --color-gold-dark: #a8851a;
+  --color-gold-soft: #f8f1d4;
+  --color-surface: #f6f8fb;
+  --color-ink: #0f172a;
+  --color-ink-muted: #5b6b82;
+  --color-line: #e8eef5;
+
+  /* shadcn-style semantic tokens */
+  --color-background: #f6f8fb;
+  --color-foreground: #0f172a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+  --color-primary: #0b2545;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #eef2f8;
+  --color-secondary-foreground: #0b2545;
+  --color-muted: #f0f4f9;
+  --color-muted-foreground: #5b6b82;
+  --color-accent: #eef3fa;
+  --color-accent-foreground: #0b2545;
+  --color-destructive: #c0392b;
+  --color-border: #e8eef5;
+  --color-input: #d9e2ee;
+  --color-ring: #c9a227;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --shadow-card: 0 1px 2px rgba(11, 37, 69, 0.04), 0 1px 3px rgba(11, 37, 69, 0.03);
+  --shadow-pop: 0 10px 30px -8px rgba(11, 37, 69, 0.18), 0 2px 6px rgba(11, 37, 69, 0.06);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    min-width: 0;
+  }
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: rgba(201, 162, 39, 0.28);
+  }
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-fraunces), ui-serif, Georgia, serif;
+    font-optical-sizing: auto;
+  }
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .safe-pb {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+  .break-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .bg-auth-hero {
+    background:
+      radial-gradient(900px 500px at 15% -10%, rgba(201, 162, 39, 0.16), transparent 60%),
+      radial-gradient(700px 500px at 110% 110%, rgba(201, 162, 39, 0.1), transparent 60%),
+      linear-gradient(160deg, #0b2545 0%, #13315c 55%, #0b2545 100%);
+  }
+  .bg-grid-faint {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.35s ease-out both;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Lightweight stand-ins for the animate-in/fade-in/zoom-in utilities used by overlays */
+.animate-in {
+  animation: pop-in 0.16s ease-out both;
+}
+[data-slot="dialog-overlay"].animate-in {
+  animation: overlay-in 0.16s ease-out both;
+}
+[data-slot="dialog-content"].animate-in {
+  animation: dialog-in 0.18s ease-out both;
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Recharts tweaks */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+  }
+}
